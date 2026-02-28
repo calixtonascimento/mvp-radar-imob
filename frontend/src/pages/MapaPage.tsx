@@ -98,7 +98,7 @@ export default function MapaPage() {
       <div className="flex items-center gap-3 flex-wrap">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-white border border-light-gray rounded-xl text-sm font-medium text-dark hover:bg-bg transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-light-gray rounded-xl text-sm font-medium text-dark hover:bg-bg transition-colors"
         >
           <Filter className="w-4 h-4" />
           Filtros
@@ -109,7 +109,7 @@ export default function MapaPage() {
             <select
               value={bairroFilter}
               onChange={(e) => setBairroFilter(e.target.value)}
-              className="px-4 py-2.5 bg-white border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="px-4 py-2.5 bg-surface border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
             >
               <option value="">Todos os bairros</option>
               {bairros.map((b) => (
@@ -120,7 +120,7 @@ export default function MapaPage() {
             <select
               value={tipoFilter}
               onChange={(e) => setTipoFilter(e.target.value)}
-              className="px-4 py-2.5 bg-white border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="px-4 py-2.5 bg-surface border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
             >
               <option value="">Todos os tipos</option>
               <option value="apartamento">Apartamento</option>

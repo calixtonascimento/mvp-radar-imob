@@ -11,8 +11,11 @@ import {
   X,
   LogOut,
   Building2,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { currentUser } from '../data/mockData';
+import { useTheme } from '../contexts/ThemeContext';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -25,6 +28,7 @@ const navItems = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   const isAuthPage = location.pathname === '/login' || location.pathname === '/cadastro';
@@ -43,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-light-gray
+          fixed lg:static inset-y-0 left-0 z-50 w-64 bg-surface border-r border-light-gray
           transform transition-transform duration-200 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           flex flex-col
@@ -111,7 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-white border-b border-light-gray px-4 lg:px-8 py-4 flex items-center gap-4">
+        <header className="bg-surface border-b border-light-gray px-4 lg:px-8 py-4 flex items-center gap-4">
           <button
             className="lg:hidden p-2 hover:bg-bg rounded-xl"
             onClick={() => setSidebarOpen(true)}
@@ -124,6 +128,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </h2>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 hover:bg-bg rounded-xl text-gray hover:text-dark transition-colors"
+              title={theme === 'light' ? 'Modo escuro' : 'Modo claro'}
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
             <span className="text-xs font-medium px-3 py-1.5 bg-secondary/10 text-secondary rounded-full">
               Plano {currentUser.plano.charAt(0).toUpperCase() + currentUser.plano.slice(1)}
             </span>

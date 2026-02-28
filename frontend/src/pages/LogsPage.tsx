@@ -46,7 +46,7 @@ export default function LogsPage() {
           return (
             <div
               key={log.id}
-              className={`bg-white rounded-2xl border border-light-gray p-5 ${
+              className={`bg-surface rounded-2xl border border-light-gray p-5 ${
                 log.status === 'erro' ? 'border-l-4 border-l-danger' :
                 log.status === 'parcial' ? 'border-l-4 border-l-warning' : ''
               }`}

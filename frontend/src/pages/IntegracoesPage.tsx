@@ -60,7 +60,7 @@ export default function IntegracoesPage() {
       </div>
 
       {/* Info Card */}
-      <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5">
+      <div className="bg-info/10 border border-info/20 rounded-2xl p-5">
         <div className="flex items-start gap-3">
           <Settings className="w-5 h-5 text-info mt-0.5" />
           <div>
@@ -78,7 +78,7 @@ export default function IntegracoesPage() {
         {integracoes.map((integ) => {
           const status = statusConfig[integ.status];
           return (
-            <div key={integ.id} className="bg-white rounded-2xl border border-light-gray p-6">
+            <div key={integ.id} className="bg-surface rounded-2xl border border-light-gray p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-bg rounded-xl flex items-center justify-center">
@@ -147,7 +147,7 @@ export default function IntegracoesPage() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-lg p-6">
+          <div className="bg-surface rounded-2xl w-full max-w-lg p-6">
             <h3 className="text-lg font-bold text-dark mb-4">Nova Integração</h3>
             <form className="space-y-4">
               <div>

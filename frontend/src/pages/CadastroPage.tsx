@@ -12,7 +12,7 @@ export default function CadastroPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="min-h-screen bg-surface flex">
       {/* Left - Hero */}
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-secondary to-secondary-dark items-center justify-center p-12">
         <div className="max-w-lg text-white">

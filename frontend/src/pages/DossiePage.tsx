@@ -43,7 +43,7 @@ export default function DossiePage() {
   if (!imovel) {
     return (
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl border border-light-gray p-6">
+        <div className="bg-surface rounded-2xl border border-light-gray p-6">
           <h3 className="text-lg font-semibold text-dark mb-4">Selecione um imóvel para gerar o dossiê</h3>
           <p className="text-sm text-gray mb-6">
             Escolha um dos seus imóveis abaixo ou acesse pelo mapa de comparação.
@@ -114,7 +114,7 @@ export default function DossiePage() {
       </button>
 
       {/* Header Card */}
-      <div className="bg-white rounded-2xl border border-light-gray overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-light-gray overflow-hidden">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-80 h-64 md:h-auto">
             <img
@@ -196,7 +196,7 @@ export default function DossiePage() {
       </div>
 
       {/* Concorrentes Próximos */}
-      <div className="bg-white rounded-2xl border border-light-gray p-6">
+      <div className="bg-surface rounded-2xl border border-light-gray p-6">
         <h3 className="text-base font-semibold text-dark mb-4">
           Concorrentes próximos ({concorrentes.length})
         </h3>
@@ -248,7 +248,7 @@ export default function DossiePage() {
       </div>
 
       {/* Sinais Recentes */}
-      <div className="bg-white rounded-2xl border border-light-gray p-6">
+      <div className="bg-surface rounded-2xl border border-light-gray p-6">
         <h3 className="text-base font-semibold text-dark mb-4">
           Gold Signals - Últimos 30 dias ({sinais.length})
         </h3>
@@ -303,7 +303,7 @@ function SummaryCard({
   highlight?: boolean;
 }) {
   return (
-    <div className={`bg-white rounded-2xl border p-5 ${highlight ? 'border-primary' : 'border-light-gray'}`}>
+    <div className={`bg-surface rounded-2xl border p-5 ${highlight ? 'border-primary' : 'border-light-gray'}`}>
       <div className="flex items-center gap-3 mb-2">
         {icon}
         <span className="text-2xl font-bold text-dark">{value}</span>

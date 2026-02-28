@@ -1,4 +1,5 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Layout from './components/Layout';
 import LoginPage from './pages/LoginPage';
 import CadastroPage from './pages/CadastroPage';
@@ -11,6 +12,7 @@ import LogsPage from './pages/LogsPage';
 
 function App() {
   return (
+    <ThemeProvider>
     <HashRouter>
       <Layout>
         <Routes>
@@ -25,6 +27,7 @@ function App() {
         </Routes>
       </Layout>
     </HashRouter>
+    </ThemeProvider>
   );
 }
 

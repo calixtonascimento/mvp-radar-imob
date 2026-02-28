@@ -14,7 +14,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="min-h-screen bg-surface flex">
       {/* Left - Form */}
       <div className="flex-1 flex items-center justify-center px-8 py-12">
         <div className="w-full max-w-md">

@@ -11,12 +11,22 @@
   --color-light-gray: #EBEBEB;
   --color-bg: #F7F7F7;
   --color-white: #FFFFFF;
+  --color-surface: #FFFFFF;
   --color-success: #00A699;
   --color-warning: #FFB400;
   --color-danger: #FF5A5F;
   --color-info: #428BFF;
 
   --font-sans: 'Inter', 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-dark: #f1f5f9;
+  --color-gray: #94a3b8;
+  --color-light-gray: #334155;
 }
 
 @layer base {

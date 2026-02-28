@@ -94,16 +94,16 @@ export default function DashboardPage() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Preço m² por Bairro */}
-        <div className="bg-white rounded-2xl border border-light-gray p-6">
+        <div className="bg-surface rounded-2xl border border-light-gray p-6">
           <h3 className="text-base font-semibold text-dark mb-4">Preço médio por m² - Seus imóveis vs Concorrentes</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={precoPorBairro}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#EBEBEB" />
-              <XAxis dataKey="bairro" tick={{ fontSize: 12, fill: '#767676' }} />
-              <YAxis tick={{ fontSize: 12, fill: '#767676' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-light-gray)" />
+              <XAxis dataKey="bairro" tick={{ fontSize: 12, fill: 'var(--color-gray)' }} />
+              <YAxis tick={{ fontSize: 12, fill: 'var(--color-gray)' }} />
               <Tooltip
                 formatter={(value) => formatCurrency(Number(value))}
-                contentStyle={{ borderRadius: '12px', border: '1px solid #EBEBEB' }}
+                contentStyle={{ borderRadius: '12px', border: '1px solid var(--color-light-gray)', backgroundColor: 'var(--color-surface)', color: 'var(--color-dark)' }}
               />
               <Bar dataKey="meu" name="Seus imóveis" fill="#FF5A5F" radius={[6, 6, 0, 0]} />
               <Bar dataKey="concorrente" name="Concorrentes" fill="#00A699" radius={[6, 6, 0, 0]} />
@@ -112,7 +112,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Distribuição por Tipo */}
-        <div className="bg-white rounded-2xl border border-light-gray p-6">
+        <div className="bg-surface rounded-2xl border border-light-gray p-6">
           <h3 className="text-base font-semibold text-dark mb-4">Distribuição por tipo de imóvel</h3>
           <div className="flex items-center">
             <ResponsiveContainer width="50%" height={250}>
@@ -130,7 +130,7 @@ export default function DashboardPage() {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid #EBEBEB' }} />
+                <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--color-light-gray)', backgroundColor: 'var(--color-surface)', color: 'var(--color-dark)' }} />
               </PieChart>
             </ResponsiveContainer>
             <div className="space-y-3">
@@ -149,7 +149,7 @@ export default function DashboardPage() {
       {/* Bottom Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Alertas Recentes */}
-        <div className="bg-white rounded-2xl border border-light-gray p-6">
+        <div className="bg-surface rounded-2xl border border-light-gray p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-semibold text-dark">Alertas recentes</h3>
             <button
@@ -179,7 +179,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Imóveis do Portfólio */}
-        <div className="bg-white rounded-2xl border border-light-gray p-6">
+        <div className="bg-surface rounded-2xl border border-light-gray p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-semibold text-dark">Meus imóveis</h3>
             <button
@@ -244,7 +244,7 @@ function KPICard({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-light-gray p-5 hover:shadow-md transition-shadow">
+    <div className="bg-surface rounded-2xl border border-light-gray p-5 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between mb-3">
         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${colorMap[color]}`}>
           {icon}
