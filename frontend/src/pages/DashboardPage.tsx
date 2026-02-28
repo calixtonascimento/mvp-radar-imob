@@ -102,7 +102,7 @@ export default function DashboardPage() {
               <XAxis dataKey="bairro" tick={{ fontSize: 12, fill: '#767676' }} />
               <YAxis tick={{ fontSize: 12, fill: '#767676' }} />
               <Tooltip
-                formatter={(value: number) => formatCurrency(value)}
+                formatter={(value) => formatCurrency(Number(value))}
                 contentStyle={{ borderRadius: '12px', border: '1px solid #EBEBEB' }}
               />
               <Bar dataKey="meu" name="Seus imóveis" fill="#FF5A5F" radius={[6, 6, 0, 0]} />

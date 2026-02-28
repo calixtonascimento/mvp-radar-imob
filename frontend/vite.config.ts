@@ -4,6 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/mvp-radar-imob/',
+  base: "/mvp-radar-imob/",
   plugins: [react(), tailwindcss()],
 });
