@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Building2, Eye, EyeOff } from 'lucide-react';
+import { Radar, Eye, EyeOff } from 'lucide-react';
 
 export default function CadastroPage() {
   const navigate = useNavigate();
@@ -12,26 +12,30 @@ export default function CadastroPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex">
+    <div className="min-h-screen bg-bg flex">
       {/* Left - Hero */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-secondary to-secondary-dark items-center justify-center p-12">
-        <div className="max-w-lg text-white">
-          <h2 className="text-4xl font-bold mb-6 leading-tight">
-            Comece a monitorar sua concorrência hoje
+      <div className="hidden lg:flex flex-1 items-center justify-center p-12" style={{ background: 'linear-gradient(135deg, #0c1220 0%, #111827 50%, #0c1220 100%)' }}>
+        <div className="max-w-lg">
+          <span className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest" style={{ background: 'rgba(52,211,153,0.15)', color: '#34d399', border: '1px solid rgba(52,211,153,0.2)', fontFamily: 'var(--font-mono)' }}>
+            Comece Agora
+          </span>
+          <h2 className="text-4xl font-black text-dark mb-6 leading-tight" style={{ letterSpacing: '-0.8px' }}>
+            Monitore sua concorrência com{' '}
+            <span className="text-secondary">inteligência</span>
           </h2>
-          <p className="text-white/80 text-lg mb-8 leading-relaxed">
+          <p className="text-gray text-lg mb-8 leading-relaxed">
             Configure em minutos e tenha visibilidade total sobre o mercado ao redor dos seus imóveis.
           </p>
-          <div className="grid grid-cols-2 gap-6 mt-10">
+          <div className="grid grid-cols-2 gap-4 mt-10">
             {[
               { value: 'R$ 250', label: 'A partir de /mês' },
               { value: '50+', label: 'Imóveis monitorados' },
               { value: '24h', label: 'Atualização diária' },
               { value: '∞', label: 'Alertas ilimitados' },
             ].map((stat) => (
-              <div key={stat.label} className="bg-white/10 rounded-2xl p-4">
-                <p className="text-2xl font-bold">{stat.value}</p>
-                <p className="text-white/70 text-sm mt-1">{stat.label}</p>
+              <div key={stat.label} className="bg-card rounded-xl p-4 border border-light-gray card-accent">
+                <p className="text-2xl font-bold text-dark" style={{ fontFamily: 'var(--font-mono)' }}>{stat.value}</p>
+                <p className="text-muted text-sm mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -41,16 +45,16 @@ export default function CadastroPage() {
       {/* Right - Form */}
       <div className="flex-1 flex items-center justify-center px-8 py-12">
         <div className="w-full max-w-md">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center">
-              <Building2 className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-2.5 mb-10">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #38bdf8, #34d399)' }}>
+              <Radar className="w-4.5 h-4.5 text-bg" strokeWidth={2.5} />
             </div>
-            <h1 className="text-2xl font-bold text-dark tracking-tight">
-              Radar<span className="text-primary">Imob</span>
+            <h1 className="text-[1.2rem] font-black text-dark" style={{ letterSpacing: '-0.5px' }}>
+              Clarity<span className="text-primary">Imob</span>
             </h1>
           </div>
 
-          <h2 className="text-2xl font-bold text-dark mb-2">Crie sua conta</h2>
+          <h2 className="text-2xl font-black text-dark mb-2" style={{ letterSpacing: '-0.5px' }}>Crie sua conta</h2>
           <p className="text-gray mb-8">Preencha os dados para começar</p>
 
           <form onSubmit={handleCadastro} className="space-y-4">
@@ -59,7 +63,10 @@ export default function CadastroPage() {
               <input
                 type="text"
                 placeholder="Seu nome"
-                className="w-full px-4 py-3 border border-light-gray rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                className="w-full px-4 py-3.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-[0.9rem] text-dark placeholder:text-muted focus:outline-none focus:border-primary transition-all"
+                style={{ boxShadow: 'none' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.1)'}
+                onBlur={(e) => e.target.style.boxShadow = 'none'}
               />
             </div>
             <div>
@@ -67,7 +74,10 @@ export default function CadastroPage() {
               <input
                 type="text"
                 placeholder="Imobiliária ou corretor"
-                className="w-full px-4 py-3 border border-light-gray rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                className="w-full px-4 py-3.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-[0.9rem] text-dark placeholder:text-muted focus:outline-none focus:border-primary transition-all"
+                style={{ boxShadow: 'none' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.1)'}
+                onBlur={(e) => e.target.style.boxShadow = 'none'}
               />
             </div>
             <div>
@@ -75,7 +85,10 @@ export default function CadastroPage() {
               <input
                 type="email"
                 placeholder="seu@email.com.br"
-                className="w-full px-4 py-3 border border-light-gray rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                className="w-full px-4 py-3.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-[0.9rem] text-dark placeholder:text-muted focus:outline-none focus:border-primary transition-all"
+                style={{ boxShadow: 'none' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.1)'}
+                onBlur={(e) => e.target.style.boxShadow = 'none'}
               />
             </div>
             <div>
@@ -84,11 +97,14 @@ export default function CadastroPage() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Mínimo 8 caracteres"
-                  className="w-full px-4 py-3 border border-light-gray rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full px-4 py-3.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-[0.9rem] text-dark placeholder:text-muted focus:outline-none focus:border-primary transition-all"
+                  style={{ boxShadow: 'none' }}
+                  onFocus={(e) => e.target.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.1)'}
+                  onBlur={(e) => e.target.style.boxShadow = 'none'}
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray hover:text-dark"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-dark transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -105,7 +121,7 @@ export default function CadastroPage() {
 
             <button
               type="submit"
-              className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-xl transition-colors duration-150 mt-2"
+              className="w-full bg-primary hover:bg-primary-dark text-bg font-bold py-3.5 rounded-[10px] transition-all duration-250 btn-primary-glow mt-2"
             >
               Criar conta
             </button>

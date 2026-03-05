@@ -46,7 +46,7 @@ export default function LogsPage() {
           return (
             <div
               key={log.id}
-              className={`bg-surface rounded-2xl border border-light-gray p-5 ${
+              className={`bg-card rounded-xl border border-light-gray p-5 ${
                 log.status === 'erro' ? 'border-l-4 border-l-danger' :
                 log.status === 'parcial' ? 'border-l-4 border-l-warning' : ''
               }`}
@@ -109,10 +109,10 @@ function LogStat({
   color: string;
 }) {
   return (
-    <div className="bg-bg rounded-xl p-3 flex items-center gap-2">
+    <div className="bg-surface rounded-xl p-3 flex items-center gap-2">
       {icon}
       <div>
-        <p className={`text-lg font-bold ${color}`}>{value}</p>
+        <p className={`text-lg font-bold ${color}`} style={{ fontFamily: 'var(--font-mono)' }}>{value}</p>
         <p className="text-xs text-gray">{label}</p>
       </div>
     </div>

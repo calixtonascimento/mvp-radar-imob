@@ -16,8 +16,8 @@ import type { Imovel, GoldSignal } from '../types';
 
 // Custom icons
 const myIcon = new L.DivIcon({
-  html: `<div style="background:#00A699;width:32px;height:32px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+  html: `<div style="background:#34d399;width:32px;height:32px;border-radius:50%;border:3px solid rgba(255,255,255,0.9);box-shadow:0 0 12px rgba(52,211,153,0.4),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#060a13" stroke="#060a13" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
   </div>`,
   className: '',
   iconSize: [32, 32],
@@ -26,8 +26,8 @@ const myIcon = new L.DivIcon({
 });
 
 const concorrenteIcon = new L.DivIcon({
-  html: `<div style="background:#FF5A5F;width:32px;height:32px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+  html: `<div style="background:#f87171;width:32px;height:32px;border-radius:50%;border:3px solid rgba(255,255,255,0.9);box-shadow:0 0 12px rgba(248,113,113,0.4),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#060a13" stroke="#060a13" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
   </div>`,
   className: '',
   iconSize: [32, 32],
@@ -37,10 +37,10 @@ const concorrenteIcon = new L.DivIcon({
 
 const concorrenteAlertIcon = new L.DivIcon({
   html: `<div style="position:relative;">
-    <div style="background:#FF5A5F;width:32px;height:32px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+    <div style="background:#f87171;width:32px;height:32px;border-radius:50%;border:3px solid rgba(255,255,255,0.9);box-shadow:0 0 12px rgba(248,113,113,0.4),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#060a13" stroke="#060a13" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
     </div>
-    <div style="position:absolute;top:-8px;right:-8px;background:#FFB400;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;">!</div>
+    <div style="position:absolute;top:-8px;right:-8px;background:#fbbf24;color:#060a13;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.9);">!</div>
   </div>`,
   className: '',
   iconSize: [32, 32],
@@ -50,10 +50,10 @@ const concorrenteAlertIcon = new L.DivIcon({
 
 const myAlertIcon = new L.DivIcon({
   html: `<div style="position:relative;">
-    <div style="background:#00A699;width:32px;height:32px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+    <div style="background:#34d399;width:32px;height:32px;border-radius:50%;border:3px solid rgba(255,255,255,0.9);box-shadow:0 0 12px rgba(52,211,153,0.4),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#060a13" stroke="#060a13" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
     </div>
-    <div style="position:absolute;top:-8px;right:-8px;background:#FFB400;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;">!</div>
+    <div style="position:absolute;top:-8px;right:-8px;background:#fbbf24;color:#060a13;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.9);">!</div>
   </div>`,
   className: '',
   iconSize: [32, 32],
@@ -98,7 +98,7 @@ export default function MapaPage() {
       <div className="flex items-center gap-3 flex-wrap">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-surface border border-light-gray rounded-xl text-sm font-medium text-dark hover:bg-bg transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 bg-card border border-light-gray rounded-[10px] text-sm font-medium text-dark hover:border-border transition-all"
         >
           <Filter className="w-4 h-4" />
           Filtros
@@ -109,7 +109,7 @@ export default function MapaPage() {
             <select
               value={bairroFilter}
               onChange={(e) => setBairroFilter(e.target.value)}
-              className="px-4 py-2.5 bg-surface border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
             >
               <option value="">Todos os bairros</option>
               {bairros.map((b) => (
@@ -120,7 +120,7 @@ export default function MapaPage() {
             <select
               value={tipoFilter}
               onChange={(e) => setTipoFilter(e.target.value)}
-              className="px-4 py-2.5 bg-surface border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
             >
               <option value="">Todos os tipos</option>
               <option value="apartamento">Apartamento</option>
@@ -138,7 +138,7 @@ export default function MapaPage() {
             <span className="w-3 h-3 rounded-full bg-secondary" /> Seus imóveis
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-primary" /> Concorrentes
+            <span className="w-3 h-3 rounded-full bg-danger" /> Concorrentes
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-full bg-warning" /> Com alertas
@@ -147,7 +147,7 @@ export default function MapaPage() {
       </div>
 
       {/* Map */}
-      <div className="flex-1 rounded-2xl overflow-hidden border border-light-gray shadow-sm">
+      <div className="flex-1 rounded-xl overflow-hidden border border-light-gray">
         <MapContainer center={center} zoom={14} className="h-full w-full" scrollWheelZoom>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -162,9 +162,9 @@ export default function MapaPage() {
                 icon={getIconForImovel(imovel)}
               >
                 <Popup>
-                  <div className="min-w-[240px] p-1">
+                  <div className="min-w-60 p-1">
                     <div className="flex items-start gap-2 mb-2">
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${imovel.isConcorrente ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${imovel.isConcorrente ? 'bg-danger/10 text-danger' : 'bg-secondary/10 text-secondary'}`}>
                         {imovel.isConcorrente ? 'Concorrente' : 'Seu imóvel'}
                       </span>
                     </div>
@@ -195,7 +195,7 @@ export default function MapaPage() {
                     )}
                     <button
                       onClick={() => navigate(`/dossie?id=${imovel.id}`)}
-                      className="mt-3 w-full text-xs bg-primary text-white py-1.5 rounded-lg font-medium hover:bg-primary-dark transition-colors"
+                      className="mt-3 w-full text-xs bg-primary text-bg py-1.5 rounded-lg font-bold hover:bg-primary-dark transition-all"
                     >
                       Ver Dossiê
                     </button>

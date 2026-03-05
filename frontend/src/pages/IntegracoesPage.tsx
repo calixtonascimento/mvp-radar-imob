@@ -52,7 +52,7 @@ export default function IntegracoesPage() {
         </p>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow"
         >
           <Plus className="w-4 h-4" />
           Nova Integração
@@ -60,7 +60,7 @@ export default function IntegracoesPage() {
       </div>
 
       {/* Info Card */}
-      <div className="bg-info/10 border border-info/20 rounded-2xl p-5">
+      <div className="bg-info/10 border border-info/20 rounded-xl p-5">
         <div className="flex items-start gap-3">
           <Settings className="w-5 h-5 text-info mt-0.5" />
           <div>
@@ -78,10 +78,10 @@ export default function IntegracoesPage() {
         {integracoes.map((integ) => {
           const status = statusConfig[integ.status];
           return (
-            <div key={integ.id} className="bg-surface rounded-2xl border border-light-gray p-6">
+            <div key={integ.id} className="bg-card rounded-xl border border-light-gray p-6 card-accent">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-bg rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-surface rounded-xl flex items-center justify-center">
                     <Settings className="w-6 h-6 text-gray" />
                   </div>
                   <div>
@@ -104,7 +104,7 @@ export default function IntegracoesPage() {
                     disabled={syncing === integ.id}
                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors
                       ${syncing === integ.id
-                        ? 'bg-light-gray text-gray cursor-not-allowed'
+                        ? 'bg-elevated text-muted cursor-not-allowed'
                         : 'bg-secondary/10 text-secondary hover:bg-secondary/20'
                       }
                     `}
@@ -112,10 +112,10 @@ export default function IntegracoesPage() {
                     <RefreshCw className={`w-4 h-4 ${syncing === integ.id ? 'animate-spin' : ''}`} />
                     {syncing === integ.id ? 'Sincronizando...' : 'Sincronizar'}
                   </button>
-                  <button className="p-2 text-gray hover:text-dark hover:bg-bg rounded-xl transition-colors">
+                  <button className="p-2 text-muted hover:text-dark hover:bg-elevated rounded-xl transition-colors">
                     <Edit3 className="w-4 h-4" />
                   </button>
-                  <button className="p-2 text-gray hover:text-danger hover:bg-danger/10 rounded-xl transition-colors">
+                  <button className="p-2 text-muted hover:text-danger hover:bg-danger/10 rounded-xl transition-colors">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
@@ -146,13 +146,13 @@ export default function IntegracoesPage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4">
-          <div className="bg-surface rounded-2xl w-full max-w-lg p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(6,10,19,0.8)', backdropFilter: 'blur(8px)' }}>
+          <div className="bg-card rounded-[20px] w-full max-w-105 p-10 border border-border" style={{ boxShadow: '0 0 60px rgba(56,189,248,0.1), 0 20px 60px rgba(0,0,0,0.3)' }}>
             <h3 className="text-lg font-bold text-dark mb-4">Nova Integração</h3>
             <form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-dark mb-2">Tipo de integração</label>
-                <select className="w-full px-4 py-3 border border-light-gray rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                <select className="w-full px-4 py-3.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-[0.9rem] text-dark focus:outline-none focus:border-primary transition-all" style={{ appearance: 'none' }}>
                   <option value="xml">Feed XML</option>
                 </select>
               </div>
@@ -161,21 +161,24 @@ export default function IntegracoesPage() {
                 <input
                   type="url"
                   placeholder="https://seusite.com.br/feed/imoveis.xml"
-                  className="w-full px-4 py-3 border border-light-gray rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  className="w-full px-4 py-3.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-[0.9rem] text-dark placeholder:text-muted focus:outline-none focus:border-primary transition-all"
+                  style={{ boxShadow: 'none' }}
+                  onFocus={(e) => e.target.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.1)'}
+                  onBlur={(e) => e.target.style.boxShadow = 'none'}
                 />
               </div>
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 px-4 py-3 border border-light-gray rounded-xl text-sm font-medium text-dark hover:bg-bg transition-colors"
+                  className="flex-1 px-4 py-3 border-[1.5px] border-light-gray rounded-[10px] text-sm font-medium text-gray hover:border-border hover:text-dark transition-all"
                 >
                   Cancelar
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 px-4 py-3 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors"
+                  className="flex-1 px-4 py-3 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow"
                 >
                   Salvar Integração
                 </button>

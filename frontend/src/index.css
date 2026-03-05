@@ -1,47 +1,232 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #FF5A5F;
-  --color-primary-dark: #E04850;
-  --color-primary-light: #FF787C;
-  --color-secondary: #00A699;
-  --color-secondary-dark: #008C82;
-  --color-dark: #484848;
-  --color-gray: #767676;
-  --color-light-gray: #EBEBEB;
-  --color-bg: #F7F7F7;
-  --color-white: #FFFFFF;
-  --color-surface: #FFFFFF;
-  --color-success: #00A699;
-  --color-warning: #FFB400;
-  --color-danger: #FF5A5F;
-  --color-info: #428BFF;
+  /* ── COLORS: Primary (Cyan) ── */
+  --color-primary: #38bdf8;
+  --color-primary-dark: #7dd3fc;
+  --color-primary-light: rgba(56, 189, 248, 0.15);
 
-  --font-sans: 'Inter', 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
+  /* ── COLORS: Secondary (Emerald) ── */
+  --color-secondary: #34d399;
+  --color-secondary-dark: #6ee7b7;
 
-/* Dark mode overrides */
-.dark {
-  --color-bg: #0f172a;
-  --color-surface: #1e293b;
+  /* ── COLORS: Semantic ── */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #38bdf8;
+
+  /* ── COLORS: Backgrounds (Dark-first) ── */
+  --color-bg: #060a13;
+  --color-surface: #0c1220;
+  --color-card: #111827;
+  --color-elevated: #1a2332;
+
+  /* ── COLORS: Text ── */
   --color-dark: #f1f5f9;
   --color-gray: #94a3b8;
-  --color-light-gray: #334155;
+  --color-muted: #64748b;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ── COLORS: Borders ── */
+  --color-light-gray: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(56, 189, 248, 0.12);
+
+  /* ── TYPOGRAPHY ── */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── SHADOWS ── */
+  --shadow-glow-sm: 0 0 30px rgba(56, 189, 248, 0.2), 0 4px 14px rgba(56, 189, 248, 0.15);
+  --shadow-glow-md: 0 0 40px rgba(56, 189, 248, 0.35), 0 6px 20px rgba(56, 189, 248, 0.25);
+  --shadow-card: 0 8px 32px rgba(56, 189, 248, 0.1);
+  --shadow-modal: 0 0 60px rgba(56, 189, 248, 0.1), 0 20px 60px rgba(0, 0, 0, 0.3);
+  --shadow-focus: 0 0 0 3px rgba(56, 189, 248, 0.1);
 }
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
     font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.65;
     color: var(--color-dark);
     background-color: var(--color-bg);
     margin: 0;
   }
+
+  /* Scrollbar styling for dark theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Focus visible for accessibility */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  /* Selection color */
+  ::selection {
+    background: rgba(56, 189, 248, 0.3);
+    color: var(--color-dark);
+  }
 }
 
-/* Leaflet overrides */
+@layer components {
+  /* Primary button glow effect */
+  .btn-primary-glow {
+    box-shadow: var(--shadow-glow-sm);
+    transition: all 0.25s ease;
+  }
+  .btn-primary-glow:hover {
+    box-shadow: var(--shadow-glow-md);
+    transform: translateY(-2px);
+  }
+
+  /* Card hover accent line */
+  .card-accent {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .card-accent::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .card-accent:hover::after {
+    opacity: 1;
+  }
+  .card-accent:hover {
+    border-color: var(--color-border);
+    transform: translateY(-2px);
+  }
+
+  /* Metric card hover */
+  .metric-hover {
+    transition: all 0.3s ease;
+  }
+  .metric-hover:hover {
+    border-color: var(--color-border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Pulse animation for status dots */
+  .dot-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Badge tag with decorative line */
+  .badge-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--color-primary);
+  }
+
+  /* Mono metric text */
+  .text-metric {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* Divider */
+  .divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  }
+}
+
+@layer utilities {
+  .glow-sm {
+    box-shadow: var(--shadow-glow-sm);
+  }
+  .glow-md {
+    box-shadow: var(--shadow-glow-md);
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Leaflet overrides for dark theme */
 .leaflet-container {
   width: 100%;
   height: 100%;
   border-radius: 12px;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--color-card) !important;
+  color: var(--color-dark) !important;
+  border: 1px solid var(--color-light-gray) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-modal) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--color-card) !important;
+}
+
+.leaflet-popup-close-button {
+  color: var(--color-gray) !important;
+}
+
+/* Recharts overrides for dark theme */
+.recharts-default-tooltip {
+  background-color: var(--color-card) !important;
+  border: 1px solid var(--color-light-gray) !important;
+  border-radius: 12px !important;
+  color: var(--color-dark) !important;
 }
 

@@ -43,7 +43,7 @@ export default function DossiePage() {
   if (!imovel) {
     return (
       <div className="space-y-6">
-        <div className="bg-surface rounded-2xl border border-light-gray p-6">
+        <div className="bg-card rounded-xl border border-light-gray p-6">
           <h3 className="text-lg font-semibold text-dark mb-4">Selecione um imóvel para gerar o dossiê</h3>
           <p className="text-sm text-gray mb-6">
             Escolha um dos seus imóveis abaixo ou acesse pelo mapa de comparação.
@@ -52,7 +52,7 @@ export default function DossiePage() {
             {meusImoveis.map((im) => (
               <div
                 key={im.id}
-                className="bg-bg rounded-2xl overflow-hidden hover:shadow-md transition-shadow cursor-pointer group"
+                className="bg-surface rounded-xl overflow-hidden cursor-pointer group card-accent border border-light-gray"
                 onClick={() => navigate(`/dossie?id=${im.id}`)}
               >
                 <div className="relative h-40 overflow-hidden">
@@ -62,7 +62,7 @@ export default function DossiePage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="bg-white/90 backdrop-blur-sm text-dark text-xs font-semibold px-2.5 py-1 rounded-lg">
+                    <span className="bg-bg/90 backdrop-blur-sm text-dark text-xs font-semibold px-2.5 py-1 rounded-lg">
                       {im.tipo.charAt(0).toUpperCase() + im.tipo.slice(1)}
                     </span>
                   </div>
@@ -114,7 +114,7 @@ export default function DossiePage() {
       </button>
 
       {/* Header Card */}
-      <div className="bg-surface rounded-2xl border border-light-gray overflow-hidden">
+      <div className="bg-card rounded-xl border border-light-gray overflow-hidden">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-80 h-64 md:h-auto">
             <img
@@ -135,14 +135,14 @@ export default function DossiePage() {
                   {imovel.endereco} - {imovel.bairro}, {imovel.cidade}/{imovel.estado}
                 </p>
               </div>
-              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow">
                 <Download className="w-4 h-4" />
                 Exportar PDF
               </button>
             </div>
 
             <div className="flex items-end gap-4 mb-4">
-              <p className="text-3xl font-bold text-dark">{formatCurrency(imovel.preco)}</p>
+              <p className="text-3xl font-bold text-dark" style={{ fontFamily: 'var(--font-mono)' }}>{formatCurrency(imovel.preco)}</p>
               {imovel.precoAnterior && (
                 <p className="text-sm text-gray line-through mb-1">{formatCurrency(imovel.precoAnterior)}</p>
               )}
@@ -196,7 +196,7 @@ export default function DossiePage() {
       </div>
 
       {/* Concorrentes Próximos */}
-      <div className="bg-surface rounded-2xl border border-light-gray p-6">
+      <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
         <h3 className="text-base font-semibold text-dark mb-4">
           Concorrentes próximos ({concorrentes.length})
         </h3>
@@ -212,7 +212,7 @@ export default function DossiePage() {
               return (
                 <div
                   key={conc.id}
-                  className="flex items-center gap-4 p-4 bg-bg rounded-xl hover:bg-light-gray/50 transition-colors cursor-pointer"
+                  className="flex items-center gap-4 p-4 bg-surface rounded-xl hover:bg-elevated transition-all cursor-pointer"
                   onClick={() => navigate(`/dossie?id=${conc.id}`)}
                 >
                   <img
@@ -248,7 +248,7 @@ export default function DossiePage() {
       </div>
 
       {/* Sinais Recentes */}
-      <div className="bg-surface rounded-2xl border border-light-gray p-6">
+      <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
         <h3 className="text-base font-semibold text-dark mb-4">
           Gold Signals - Últimos 30 dias ({sinais.length})
         </h3>
@@ -257,7 +257,7 @@ export default function DossiePage() {
         ) : (
           <div className="space-y-3">
             {sinais.map((signal) => (
-              <div key={signal.id} className="flex items-start gap-3 p-3 bg-bg rounded-xl">
+              <div key={signal.id} className="flex items-start gap-3 p-3 bg-surface rounded-xl">
                 <span className={`text-xs font-semibold px-2 py-1 rounded-lg whitespace-nowrap ${getSignalColor(signal.tipo)}`}>
                   {getSignalLabel(signal.tipo)}
                 </span>
@@ -272,9 +272,9 @@ export default function DossiePage() {
       </div>
 
       {/* Resumo para proprietário */}
-      <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 text-white">
-        <h3 className="text-lg font-bold mb-3">📋 Resumo para o proprietário</h3>
-        <ul className="space-y-2 text-sm text-white/90">
+      <div className="rounded-xl p-6" style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.15), rgba(52,211,153,0.1))', border: '1px solid rgba(56,189,248,0.2)' }}>
+        <h3 className="text-lg font-bold mb-3 text-dark">📋 Resumo para o proprietário</h3>
+        <ul className="space-y-2 text-sm text-gray">
           <li>• {sinaisResumidos.novos} novos concorrentes nos últimos 30 dias</li>
           <li>• {sinaisResumidos.alteracoes} imóveis concorrentes reduziram preço</li>
           <li>• {sinaisResumidos.vendas} imóvel(is) vendido(s) ou retirado(s)</li>
@@ -303,10 +303,10 @@ function SummaryCard({
   highlight?: boolean;
 }) {
   return (
-    <div className={`bg-surface rounded-2xl border p-5 ${highlight ? 'border-primary' : 'border-light-gray'}`}>
+    <div className={`bg-card rounded-xl border p-5 metric-hover ${highlight ? 'border-primary' : 'border-light-gray'}`}>
       <div className="flex items-center gap-3 mb-2">
         {icon}
-        <span className="text-2xl font-bold text-dark">{value}</span>
+        <span className="text-2xl font-bold text-dark" style={{ fontFamily: 'var(--font-mono)' }}>{value}</span>
       </div>
       <p className="text-sm font-medium text-dark">{label}</p>
       <p className="text-xs text-gray mt-0.5">{sublabel}</p>

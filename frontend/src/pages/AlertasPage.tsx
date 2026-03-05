@@ -61,7 +61,7 @@ export default function AlertasPage() {
             {naoLidos} alertas não lidos • {goldSignals.length} total
           </p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-surface border border-light-gray rounded-xl text-sm font-medium text-dark hover:bg-bg transition-colors">
+        <button className="flex items-center gap-2 px-4 py-2 bg-card border border-light-gray rounded-[10px] text-sm font-medium text-dark hover:border-border transition-all">
           <Check className="w-4 h-4" />
           Marcar todos como lidos
         </button>
@@ -75,8 +75,8 @@ export default function AlertasPage() {
             onClick={() => setFiltroTipo(opt.value)}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all
               ${filtroTipo === opt.value
-                ? 'bg-primary text-white'
-                : 'bg-surface border border-light-gray text-gray hover:bg-bg hover:text-dark'
+                ? 'bg-primary text-bg'
+                : 'bg-card border border-light-gray text-gray hover:border-border hover:text-dark'
               }`}
           >
             {opt.icon}
@@ -89,7 +89,7 @@ export default function AlertasPage() {
           <select
             value={filtroLido}
             onChange={(e) => setFiltroLido(e.target.value as typeof filtroLido)}
-            className="px-3 py-2 bg-surface border border-light-gray rounded-xl text-sm text-dark focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="px-3 py-2 bg-surface border border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
           >
             <option value="todos">Todos</option>
             <option value="nao_lidos">Não lidos</option>
@@ -101,15 +101,15 @@ export default function AlertasPage() {
       {/* Alerts List */}
       <div className="space-y-3">
         {alertasFiltrados.length === 0 ? (
-          <div className="bg-surface rounded-2xl border border-light-gray p-12 text-center">
-            <Bell className="w-12 h-12 text-light-gray mx-auto mb-4" />
+          <div className="bg-card rounded-xl border border-light-gray p-12 text-center">
+            <Bell className="w-12 h-12 text-muted mx-auto mb-4" />
             <p className="text-gray text-sm">Nenhum alerta encontrado com os filtros selecionados</p>
           </div>
         ) : (
           alertasFiltrados.map((signal) => (
             <div
               key={signal.id}
-              className={`bg-surface rounded-2xl border border-light-gray p-5 hover:shadow-md transition-all cursor-pointer
+              className={`bg-card rounded-xl border border-light-gray p-5 hover:border-border transition-all cursor-pointer card-accent
                 ${!signal.lido ? 'border-l-4 border-l-primary' : ''}
               `}
               onClick={() => navigate(`/dossie?id=${signal.imovelId}`)}
