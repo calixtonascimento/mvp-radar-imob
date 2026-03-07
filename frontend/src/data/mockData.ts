@@ -606,6 +606,25 @@ export const todosImoveis: Imovel[] = [...meusImoveis, ...imoveisConcorrentes];
 export const bairros = ["Barra da Tijuca", "Recreio dos Bandeirantes"];
 
 // ============================
+// HELPER: Estados disponíveis
+// ============================
+export const estados = [...new Set(todosImoveis.map((i) => i.estado))].sort();
+
+// ============================
+// HELPER: Cidades por estado
+// ============================
+export function getCidadesPorEstado(estado: string): string[] {
+  return [...new Set(todosImoveis.filter((i) => i.estado === estado).map((i) => i.cidade))].sort();
+}
+
+// ============================
+// HELPER: Bairros por cidade
+// ============================
+export function getBairrosPorCidade(cidade: string): string[] {
+  return [...new Set(todosImoveis.filter((i) => i.cidade === cidade).map((i) => i.bairro))].sort();
+}
+
+// ============================
 // HELPER: Formatar moeda
 // ============================
 export function formatCurrency(value: number): string {
@@ -656,11 +675,11 @@ export function getSignalLabel(tipo: GoldSignal["tipo"]): string {
 
 export function getSignalColor(tipo: GoldSignal["tipo"]): string {
   const colors: Record<GoldSignal["tipo"], string> = {
-    alteracao_preco: "text-warning bg-warning/10",
-    venda_retirada: "text-info bg-info/10",
-    novo_concorrente: "text-danger bg-danger/10",
-    acima_mercado: "text-primary bg-primary/10",
-    sem_alteracao: "text-gray bg-gray/10",
+    alteracao_preco: "text-warning bg-warning/20",
+    venda_retirada: "text-info bg-info/20",
+    novo_concorrente: "text-danger bg-danger/20",
+    acima_mercado: "text-primary bg-primary/20",
+    sem_alteracao: "text-gray bg-gray/20",
   };
   return colors[tipo];
 }

@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  radar-imob-demo:
+    build: .
+    container_name: radar-imob-demo
+    ports:
+      - "6061:6061"
+    restart: always

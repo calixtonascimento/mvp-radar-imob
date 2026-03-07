@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -11,6 +12,7 @@ import {
   TrendingUp,
   AlertTriangle,
   Download,
+  Filter,
 } from 'lucide-react';
 import {
   meusImoveis,
@@ -20,6 +22,9 @@ import {
   formatDate,
   getSignalLabel,
   getSignalColor,
+  estados,
+  getCidadesPorEstado,
+  getBairrosPorCidade,
 } from '../data/mockData';
 import type { Imovel } from '../types';
 
@@ -37,8 +42,47 @@ export default function DossiePage() {
   const navigate = useNavigate();
   const id = searchParams.get('id');
 
-  const todosImoveis = [...meusImoveis, ...imoveisConcorrentes];
-  const imovel = todosImoveis.find((i) => i.id === id);
+  const [estadoFilter, setEstadoFilter] = useState('');
+  const [cidadeFilter, setCidadeFilter] = useState('');
+  const [bairroFilter, setBairroFilter] = useState('');
+  const [tipoFilter, setTipoFilter] = useState('');
+
+  const cidadesDisponiveis = useMemo(() => estadoFilter ? getCidadesPorEstado(estadoFilter) : [], [estadoFilter]);
+  const bairrosDisponiveis = useMemo(() => cidadeFilter ? getBairrosPorCidade(cidadeFilter) : [], [cidadeFilter]);
+
+  const imoveisFiltrados = useMemo(() => {
+    let imoveis = [...meusImoveis];
+    if (estadoFilter) imoveis = imoveis.filter((i) => i.estado === estadoFilter);
+    if (cidadeFilter) imoveis = imoveis.filter((i) => i.cidade === cidadeFilter);
+    if (bairroFilter) imoveis = imoveis.filter((i) => i.bairro === bairroFilter);
+    if (tipoFilter) imoveis = imoveis.filter((i) => i.tipo === tipoFilter);
+    return imoveis;
+  }, [estadoFilter, cidadeFilter, bairroFilter, tipoFilter]);
+
+  // Block concorrentes from accessing dossiê
+  const imovel = id ? meusImoveis.find((i) => i.id === id) : undefined;
+  const isConcorrente = id ? imoveisConcorrentes.some((i) => i.id === id) : false;
+
+  if (id && isConcorrente) {
+    return (
+      <div className="space-y-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-sm text-gray hover:text-dark transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Voltar
+        </button>
+        <div className="bg-card rounded-xl border border-light-gray p-12 text-center">
+          <AlertTriangle className="w-12 h-12 text-warning mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-dark mb-2">Dossiê indisponível</h3>
+          <p className="text-sm text-gray">
+            O dossiê é gerado apenas para imóveis da sua imobiliária. Concorrentes não possuem dossiê.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (!imovel) {
     return (
@@ -48,8 +92,52 @@ export default function DossiePage() {
           <p className="text-sm text-gray mb-6">
             Escolha um dos seus imóveis abaixo ou acesse pelo mapa de comparação.
           </p>
+
+          {/* Filters */}
+          <div className="flex items-center gap-3 flex-wrap mb-6">
+            <Filter className="w-4 h-4 text-gray" />
+            <select
+              value={estadoFilter}
+              onChange={(e) => { setEstadoFilter(e.target.value); setCidadeFilter(''); setBairroFilter(''); }}
+              className="px-3 py-2 bg-surface border border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
+            >
+              <option value="">Todos os estados</option>
+              {estados.map((e) => <option key={e} value={e}>{e}</option>)}
+            </select>
+            <select
+              value={cidadeFilter}
+              onChange={(e) => { setCidadeFilter(e.target.value); setBairroFilter(''); }}
+              disabled={!estadoFilter}
+              className="px-3 py-2 bg-surface border border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary disabled:opacity-50"
+            >
+              <option value="">Todas as cidades</option>
+              {cidadesDisponiveis.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <select
+              value={bairroFilter}
+              onChange={(e) => setBairroFilter(e.target.value)}
+              disabled={!cidadeFilter}
+              className="px-3 py-2 bg-surface border border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary disabled:opacity-50"
+            >
+              <option value="">Todos os bairros</option>
+              {bairrosDisponiveis.map((b) => <option key={b} value={b}>{b}</option>)}
+            </select>
+            <select
+              value={tipoFilter}
+              onChange={(e) => setTipoFilter(e.target.value)}
+              className="px-3 py-2 bg-surface border border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
+            >
+              <option value="">Todos os tipos</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="casa">Casa</option>
+              <option value="cobertura">Cobertura</option>
+              <option value="terreno">Terreno</option>
+              <option value="comercial">Comercial</option>
+            </select>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {meusImoveis.map((im) => (
+            {imoveisFiltrados.map((im) => (
               <div
                 key={im.id}
                 className="bg-surface rounded-xl overflow-hidden cursor-pointer group card-accent border border-light-gray"
@@ -126,7 +214,7 @@ export default function DossiePage() {
           <div className="flex-1 p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg ${imovel.isConcorrente ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
+                <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg ${imovel.isConcorrente ? 'bg-primary/20 text-primary-dark' : 'bg-secondary/20 text-secondary-dark'}`}>
                   {imovel.isConcorrente ? 'Imóvel Concorrente' : 'Seu Imóvel'}
                 </span>
                 <h2 className="text-xl font-bold text-dark mt-2">{imovel.titulo}</h2>
@@ -212,8 +300,7 @@ export default function DossiePage() {
               return (
                 <div
                   key={conc.id}
-                  className="flex items-center gap-4 p-4 bg-surface rounded-xl hover:bg-elevated transition-all cursor-pointer"
-                  onClick={() => navigate(`/dossie?id=${conc.id}`)}
+                  className="flex items-center gap-4 p-4 bg-surface rounded-xl hover:bg-elevated transition-all"
                 >
                   <img
                     src={conc.imagemUrl}

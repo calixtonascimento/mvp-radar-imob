@@ -15,6 +15,7 @@ import {
   getSignalLabel,
   getSignalColor,
   formatCurrency,
+  meusImoveis,
 } from '../data/mockData';
 import { useNavigate } from 'react-router-dom';
 import type { GoldSignal } from '../types';
@@ -112,7 +113,7 @@ export default function AlertasPage() {
               className={`bg-card rounded-xl border border-light-gray p-5 hover:border-border transition-all cursor-pointer card-accent
                 ${!signal.lido ? 'border-l-4 border-l-primary' : ''}
               `}
-              onClick={() => navigate(`/dossie?id=${signal.imovelId}`)}
+              onClick={() => navigate(`/mapa?highlight=${signal.imovelId}`)}
             >
               <div className="flex items-start gap-4">
                 <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${getSignalColor(signal.tipo)}`}>
@@ -122,6 +123,9 @@ export default function AlertasPage() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-lg ${getSignalColor(signal.tipo)}`}>
                       {getSignalLabel(signal.tipo)}
+                    </span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg ${meusImoveis.some((i) => i.id === signal.imovelId) ? 'bg-secondary/15 text-secondary' : 'bg-danger/15 text-danger'}`}>
+                      {meusImoveis.some((i) => i.id === signal.imovelId) ? 'Meu Imóvel' : 'Concorrente'}
                     </span>
                     <span className="text-xs text-gray">{signal.bairro}</span>
                     {!signal.lido && (

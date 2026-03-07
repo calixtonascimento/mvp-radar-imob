@@ -9,24 +9,11 @@ import {
   ArrowDownRight,
 } from 'lucide-react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell,
+  PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
 } from 'recharts';
 import {
   dashboardResumo,
-  meusImoveis,
-  goldSignals,
-  formatCurrency,
-  getSignalLabel,
-  getSignalColor,
-  formatDate,
 } from '../data/mockData';
-import { useNavigate } from 'react-router-dom';
-
-const precoPorBairro = [
-  { bairro: 'Barra da Tijuca', meu: 10416, concorrente: 8826 },
-  { bairro: 'Recreio', meu: 8090, concorrente: 7600 },
-];
 
 const tipoDistribuicao = [
   { name: 'Apartamento', value: 8, color: '#38bdf8' },
@@ -36,9 +23,6 @@ const tipoDistribuicao = [
 ];
 
 export default function DashboardPage() {
-  const navigate = useNavigate();
-  const alertasRecentes = goldSignals.filter((s) => !s.lido).slice(0, 4);
-
   return (
     <div className="space-y-6">
       {/* KPI Cards */}
@@ -93,24 +77,6 @@ export default function DashboardPage() {
 
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Preço m² por Bairro */}
-        <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
-          <h3 className="text-base font-semibold text-dark mb-4">Preço médio por m² - Seus imóveis vs Concorrentes</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={precoPorBairro}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="bairro" tick={{ fontSize: 12, fill: '#94a3b8' }} />
-              <YAxis tick={{ fontSize: 12, fill: '#94a3b8' }} />
-              <Tooltip
-                formatter={(value) => formatCurrency(Number(value))}
-                contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)', backgroundColor: '#111827', color: '#f1f5f9' }}
-              />
-              <Bar dataKey="meu" name="Seus imóveis" fill="#38bdf8" radius={[6, 6, 0, 0]} />
-              <Bar dataKey="concorrente" name="Concorrentes" fill="#34d399" radius={[6, 6, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
         {/* Distribuição por Tipo */}
         <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
           <h3 className="text-base font-semibold text-dark mb-4">Distribuição por tipo de imóvel</h3>
@@ -142,74 +108,6 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Alertas Recentes */}
-        <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-semibold text-dark">Alertas recentes</h3>
-            <button
-              onClick={() => navigate('/alertas')}
-              className="text-sm text-primary hover:text-primary-dark font-medium"
-            >
-              Ver todos →
-            </button>
-          </div>
-          <div className="space-y-3">
-            {alertasRecentes.map((signal) => (
-              <div
-                key={signal.id}
-                className="flex items-start gap-3 p-3 rounded-xl bg-surface hover:bg-elevated transition-colors cursor-pointer"
-                onClick={() => navigate('/alertas')}
-              >
-                <span className={`text-xs font-semibold px-2 py-1 rounded-lg whitespace-nowrap ${getSignalColor(signal.tipo)}`}>
-                  {getSignalLabel(signal.tipo)}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm text-dark truncate">{signal.descricao}</p>
-                  <p className="text-xs text-gray mt-1">{formatDate(signal.data)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Imóveis do Portfólio */}
-        <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-semibold text-dark">Meus imóveis</h3>
-            <button
-              onClick={() => navigate('/mapa')}
-              className="text-sm text-primary hover:text-primary-dark font-medium"
-            >
-              Ver no mapa →
-            </button>
-          </div>
-          <div className="space-y-3">
-            {meusImoveis.slice(0, 4).map((imovel) => (
-              <div
-                key={imovel.id}
-                className="flex items-center gap-4 p-3 rounded-xl bg-surface hover:bg-elevated transition-colors cursor-pointer"
-                onClick={() => navigate(`/dossie?id=${imovel.id}`)}
-              >
-                <img
-                  src={imovel.imagemUrl}
-                  alt={imovel.titulo}
-                  className="w-14 h-14 rounded-xl object-cover"
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-dark truncate">{imovel.titulo}</p>
-                  <p className="text-xs text-gray">{imovel.bairro} • {imovel.areaTotal}m²</p>
-                </div>
-                <p className="text-sm font-semibold text-dark whitespace-nowrap">
-                  {formatCurrency(imovel.preco)}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </div>
