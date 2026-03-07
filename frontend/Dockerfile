@@ -9,7 +9,9 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+# Sobrescreve o base do vite para servir da raiz no Docker
+ENV VITE_BASE=/
+RUN sed -i 's|base: "/mvp-radar-imob/"|base: "/"|' vite.config.ts && npm run build
 
 
 # ---------- STAGE 2: SERVE ----------
@@ -18,17 +20,18 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # configuração para SPA (React Router)
-RUN rm /etc/nginx/conf.d/default.conf
+COPY <<'EOF' /etc/nginx/conf.d/default.conf
+server {
+    listen 6061;
+    server_name localhost;
+    root /usr/share/nginx/html;
+    index index.html;
 
-RUN echo 'server { \
-    listen 6061; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+EOF
 
 EXPOSE 6061
 

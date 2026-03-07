@@ -12,6 +12,7 @@ import {
   getSignalLabel,
   estados,
   getCidadesPorEstado,
+  getBairrosPorCidade,
 } from '../data/mockData';
 import type { Imovel, GoldSignal } from '../types';
 
@@ -87,6 +88,7 @@ export default function MapaPage() {
   const [searchParams] = useSearchParams();
   const [estadoFilter, setEstadoFilter] = useState<string>('');
   const [cidadeFilter, setCidadeFilter] = useState<string>('');
+  const [bairroFilter, setBairroFilter] = useState<string>('');
   const [showFilters, setShowFilters] = useState(false);
 
   // Highlight a specific property when coming from Alertas page
@@ -96,6 +98,10 @@ export default function MapaPage() {
     return estadoFilter ? getCidadesPorEstado(estadoFilter) : [];
   }, [estadoFilter]);
 
+  const bairrosDisponiveis = useMemo(() => {
+    return cidadeFilter ? getBairrosPorCidade(cidadeFilter) : [];
+  }, [cidadeFilter]);
+
   const todosImoveis = useMemo(() => {
     let imoveis = [...meusImoveis, ...imoveisConcorrentes];
     if (estadoFilter) {
@@ -104,8 +110,11 @@ export default function MapaPage() {
     if (cidadeFilter) {
       imoveis = imoveis.filter((i) => i.cidade === cidadeFilter);
     }
+    if (bairroFilter) {
+      imoveis = imoveis.filter((i) => i.bairro === bairroFilter);
+    }
     return imoveis;
-  }, [estadoFilter, cidadeFilter]);
+  }, [estadoFilter, cidadeFilter, bairroFilter]);
 
   const { center, zoom } = useMemo(() => {
     if (highlightId) {
@@ -142,6 +151,7 @@ export default function MapaPage() {
               onChange={(e) => {
                 setEstadoFilter(e.target.value);
                 setCidadeFilter('');
+                setBairroFilter('');
               }}
               className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
             >
@@ -153,13 +163,28 @@ export default function MapaPage() {
 
             <select
               value={cidadeFilter}
-              onChange={(e) => setCidadeFilter(e.target.value)}
+              onChange={(e) => {
+                setCidadeFilter(e.target.value);
+                setBairroFilter('');
+              }}
               disabled={!estadoFilter}
               className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary disabled:opacity-50"
             >
               <option value="">Todas as cidades</option>
               {cidadesDisponiveis.map((c) => (
                 <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+
+            <select
+              value={bairroFilter}
+              onChange={(e) => setBairroFilter(e.target.value)}
+              disabled={!cidadeFilter}
+              className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary disabled:opacity-50"
+            >
+              <option value="">Todos os bairros</option>
+              {bairrosDisponiveis.map((b) => (
+                <option key={b} value={b}>{b}</option>
               ))}
             </select>
           </>
@@ -189,11 +214,17 @@ export default function MapaPage() {
           />
           {todosImoveis.map((imovel) => {
             const signals = getImovelSignals(imovel.id);
+            const isHighlighted = highlightId === imovel.id;
             return (
               <Marker
                 key={imovel.id}
                 position={[imovel.latitude, imovel.longitude]}
                 icon={getIconForImovel(imovel)}
+                ref={(ref) => {
+                  if (ref && isHighlighted) {
+                    setTimeout(() => ref.openPopup(), 300);
+                  }
+                }}
               >
                 <Popup>
                   <div className="min-w-60 p-1">
