@@ -12,7 +12,7 @@ import {
   LogOut,
   Radar,
 } from 'lucide-react';
-import { currentUser } from '../data/mockData';
+import { currentUser, goldSignals } from '../data/mockData';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -26,6 +26,7 @@ const navItems = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const naoLidos = goldSignals.filter((s) => !s.lido).length;
 
   const isAuthPage = location.pathname === '/login' || location.pathname === '/cadastro';
   if (isAuthPage) return <>{children}</>;
@@ -126,6 +127,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </h2>
           </div>
           <div className="flex items-center gap-2">
+            <NavLink
+              to="/alertas"
+              className="relative p-2 hover:bg-elevated rounded-xl transition-colors text-gray hover:text-dark"
+            >
+              <Bell className="w-5 h-5" />
+              {naoLidos > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-primary text-bg text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {naoLidos}
+                </span>
+              )}
+            </NavLink>
             <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
               style={{
                 background: 'rgba(52, 211, 153, 0.15)',

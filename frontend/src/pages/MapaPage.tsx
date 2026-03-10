@@ -1,8 +1,8 @@
-import { useState, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useState, useMemo, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Filter } from 'lucide-react';
 import {
   meusImoveis,
@@ -10,7 +10,9 @@ import {
   formatCurrency,
   goldSignals,
   getSignalLabel,
-  bairros,
+  estados,
+  getCidadesPorEstado,
+  getBairrosPorCidade,
 } from '../data/mockData';
 import type { Imovel, GoldSignal } from '../types';
 
@@ -73,24 +75,62 @@ function getIconForImovel(imovel: Imovel): L.DivIcon {
   return signals.length > 0 ? myAlertIcon : myIcon;
 }
 
+function MapUpdater({ center, zoom }: { center: [number, number]; zoom: number }) {
+  const map = useMap();
+  useEffect(() => {
+    map.setView(center, zoom);
+  }, [map, center, zoom]);
+  return null;
+}
+
 export default function MapaPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [estadoFilter, setEstadoFilter] = useState<string>('');
+  const [cidadeFilter, setCidadeFilter] = useState<string>('');
   const [bairroFilter, setBairroFilter] = useState<string>('');
-  const [tipoFilter, setTipoFilter] = useState<string>('');
   const [showFilters, setShowFilters] = useState(false);
+
+  // Highlight a specific property when coming from Alertas page
+  const highlightId = searchParams.get('highlight');
+
+  const cidadesDisponiveis = useMemo(() => {
+    return estadoFilter ? getCidadesPorEstado(estadoFilter) : [];
+  }, [estadoFilter]);
+
+  const bairrosDisponiveis = useMemo(() => {
+    return cidadeFilter ? getBairrosPorCidade(cidadeFilter) : [];
+  }, [cidadeFilter]);
 
   const todosImoveis = useMemo(() => {
     let imoveis = [...meusImoveis, ...imoveisConcorrentes];
+    if (estadoFilter) {
+      imoveis = imoveis.filter((i) => i.estado === estadoFilter);
+    }
+    if (cidadeFilter) {
+      imoveis = imoveis.filter((i) => i.cidade === cidadeFilter);
+    }
     if (bairroFilter) {
       imoveis = imoveis.filter((i) => i.bairro === bairroFilter);
     }
-    if (tipoFilter) {
-      imoveis = imoveis.filter((i) => i.tipo === tipoFilter);
-    }
     return imoveis;
-  }, [bairroFilter, tipoFilter]);
+  }, [estadoFilter, cidadeFilter, bairroFilter]);
 
-  const center: [number, number] = [-23.004, -43.365];
+  const { center, zoom } = useMemo(() => {
+    if (highlightId) {
+      const allImoveis = [...meusImoveis, ...imoveisConcorrentes];
+      const target = allImoveis.find((i) => i.id === highlightId);
+      if (target) {
+        return { center: [target.latitude, target.longitude] as [number, number], zoom: 16 };
+      }
+    }
+    if (todosImoveis.length > 0) {
+      const avgLat = todosImoveis.reduce((sum, i) => sum + i.latitude, 0) / todosImoveis.length;
+      const avgLng = todosImoveis.reduce((sum, i) => sum + i.longitude, 0) / todosImoveis.length;
+      return { center: [avgLat, avgLng] as [number, number], zoom: 14 };
+    }
+    return { center: [-23.004, -43.365] as [number, number], zoom: 14 };
+  }, [todosImoveis, highlightId]);
 
   return (
     <div className="h-[calc(100vh-140px)] flex flex-col gap-4">
@@ -107,27 +147,45 @@ export default function MapaPage() {
         {showFilters && (
           <>
             <select
-              value={bairroFilter}
-              onChange={(e) => setBairroFilter(e.target.value)}
+              value={estadoFilter}
+              onChange={(e) => {
+                setEstadoFilter(e.target.value);
+                setCidadeFilter('');
+                setBairroFilter('');
+              }}
               className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
             >
-              <option value="">Todos os bairros</option>
-              {bairros.map((b) => (
-                <option key={b} value={b}>{b}</option>
+              <option value="">Todos os estados</option>
+              {estados.map((e) => (
+                <option key={e} value={e}>{e}</option>
               ))}
             </select>
 
             <select
-              value={tipoFilter}
-              onChange={(e) => setTipoFilter(e.target.value)}
-              className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary"
+              value={cidadeFilter}
+              onChange={(e) => {
+                setCidadeFilter(e.target.value);
+                setBairroFilter('');
+              }}
+              disabled={!estadoFilter}
+              className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary disabled:opacity-50"
             >
-              <option value="">Todos os tipos</option>
-              <option value="apartamento">Apartamento</option>
-              <option value="casa">Casa</option>
-              <option value="cobertura">Cobertura</option>
-              <option value="terreno">Terreno</option>
-              <option value="comercial">Comercial</option>
+              <option value="">Todas as cidades</option>
+              {cidadesDisponiveis.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+
+            <select
+              value={bairroFilter}
+              onChange={(e) => setBairroFilter(e.target.value)}
+              disabled={!cidadeFilter}
+              className="px-4 py-2.5 bg-surface border-[1.5px] border-light-gray rounded-[10px] text-sm text-dark focus:outline-none focus:border-primary disabled:opacity-50"
+            >
+              <option value="">Todos os bairros</option>
+              {bairrosDisponiveis.map((b) => (
+                <option key={b} value={b}>{b}</option>
+              ))}
             </select>
           </>
         )}
@@ -148,18 +206,25 @@ export default function MapaPage() {
 
       {/* Map */}
       <div className="flex-1 rounded-xl overflow-hidden border border-light-gray">
-        <MapContainer center={center} zoom={14} className="h-full w-full" scrollWheelZoom>
+        <MapContainer center={center} zoom={zoom} className="h-full w-full" scrollWheelZoom>
+          <MapUpdater center={center} zoom={zoom} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {todosImoveis.map((imovel) => {
             const signals = getImovelSignals(imovel.id);
+            const isHighlighted = highlightId === imovel.id;
             return (
               <Marker
                 key={imovel.id}
                 position={[imovel.latitude, imovel.longitude]}
                 icon={getIconForImovel(imovel)}
+                ref={(ref) => {
+                  if (ref && isHighlighted) {
+                    setTimeout(() => ref.openPopup(), 300);
+                  }
+                }}
               >
                 <Popup>
                   <div className="min-w-60 p-1">
@@ -193,12 +258,14 @@ export default function MapaPage() {
                         ))}
                       </div>
                     )}
-                    <button
-                      onClick={() => navigate(`/dossie?id=${imovel.id}`)}
-                      className="mt-3 w-full text-xs bg-primary text-bg py-1.5 rounded-lg font-bold hover:bg-primary-dark transition-all"
-                    >
-                      Ver Dossiê
-                    </button>
+                    {!imovel.isConcorrente && (
+                      <button
+                        onClick={() => navigate(`/dossie?id=${imovel.id}`)}
+                        className="mt-3 w-full text-xs bg-primary text-bg py-1.5 rounded-lg font-bold hover:bg-primary-dark transition-all"
+                      >
+                        Ver Dossiê
+                      </button>
+                    )}
                   </div>
                 </Popup>
               </Marker>
