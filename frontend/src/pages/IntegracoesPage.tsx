@@ -146,8 +146,8 @@ export default function IntegracoesPage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(6,10,19,0.8)', backdropFilter: 'blur(8px)' }}>
-          <div className="bg-card rounded-[20px] w-full max-w-105 p-10 border border-border" style={{ boxShadow: '0 0 60px rgba(56,189,248,0.1), 0 20px 60px rgba(0,0,0,0.3)' }}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'color-mix(in srgb, var(--color-bg) 80%, transparent)', backdropFilter: 'blur(8px)' }}>
+          <div className="bg-card rounded-[20px] w-full max-w-105 p-10 border border-border" style={{ boxShadow: 'var(--shadow-modal)' }}>
             <h3 className="text-lg font-bold text-dark mb-4">Nova Integração</h3>
             <form className="space-y-4">
               <div>

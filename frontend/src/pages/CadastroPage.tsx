@@ -14,7 +14,7 @@ export default function CadastroPage() {
   return (
     <div className="min-h-screen bg-bg flex">
       {/* Left - Hero */}
-      <div className="hidden lg:flex flex-1 items-center justify-center p-12" style={{ background: 'linear-gradient(135deg, #0c1220 0%, #111827 50%, #0c1220 100%)' }}>
+      <div className="hidden lg:flex flex-1 items-center justify-center p-12" style={{ background: 'linear-gradient(135deg, var(--color-surface) 0%, var(--color-card) 50%, var(--color-surface) 100%)' }}>
         <div className="max-w-lg">
           <span className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest" style={{ background: 'rgba(52,211,153,0.15)', color: '#34d399', border: '1px solid rgba(52,211,153,0.2)', fontFamily: 'var(--font-mono)' }}>
             Comece Agora

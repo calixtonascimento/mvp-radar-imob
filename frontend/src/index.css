@@ -2,42 +2,75 @@
 
 @theme {
   /* ── COLORS: Primary (Cyan) ── */
-  --color-primary: #38bdf8;
-  --color-primary-dark: #7dd3fc;
-  --color-primary-light: rgba(56, 189, 248, 0.15);
+  --color-primary: #0ea5e9;
+  --color-primary-dark: #0284c7;
+  --color-primary-light: rgba(14, 165, 233, 0.1);
 
   /* ── COLORS: Secondary (Emerald) ── */
-  --color-secondary: #34d399;
-  --color-secondary-dark: #6ee7b7;
+  --color-secondary: #10b981;
+  --color-secondary-dark: #059669;
 
   /* ── COLORS: Semantic ── */
-  --color-success: #34d399;
-  --color-warning: #fbbf24;
-  --color-danger: #f87171;
-  --color-info: #38bdf8;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #0ea5e9;
 
-  /* ── COLORS: Backgrounds (Dark-first) ── */
-  --color-bg: #060a13;
-  --color-surface: #0c1220;
-  --color-card: #111827;
-  --color-elevated: #1a2332;
+  /* ── COLORS: Backgrounds (Light-first) ── */
+  --color-bg: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-elevated: #f1f5f9;
 
   /* ── COLORS: Text ── */
-  --color-dark: #f1f5f9;
-  --color-gray: #94a3b8;
+  --color-dark: #0f172a;
+  --color-gray: #475569;
   --color-muted: #64748b;
   --color-white: #ffffff;
   --color-black: #000000;
 
   /* ── COLORS: Borders ── */
-  --color-light-gray: rgba(255, 255, 255, 0.06);
-  --color-border: rgba(56, 189, 248, 0.12);
+  --color-light-gray: rgba(0, 0, 0, 0.08);
+  --color-border: rgba(14, 165, 233, 0.2);
 
   /* ── TYPOGRAPHY ── */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   /* ── SHADOWS ── */
+  --shadow-glow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-glow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --shadow-focus: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+/* ── Dark theme overrides ── */
+.dark {
+  --color-primary: #38bdf8;
+  --color-primary-dark: #7dd3fc;
+  --color-primary-light: rgba(56, 189, 248, 0.15);
+
+  --color-secondary: #34d399;
+  --color-secondary-dark: #6ee7b7;
+
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #38bdf8;
+
+  --color-bg: #060a13;
+  --color-surface: #0c1220;
+  --color-card: #111827;
+  --color-elevated: #1a2332;
+
+  --color-dark: #f1f5f9;
+  --color-gray: #94a3b8;
+  --color-muted: #64748b;
+
+  --color-light-gray: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(56, 189, 248, 0.12);
+
   --shadow-glow-sm: 0 0 30px rgba(56, 189, 248, 0.2), 0 4px 14px rgba(56, 189, 248, 0.15);
   --shadow-glow-md: 0 0 40px rgba(56, 189, 248, 0.35), 0 6px 20px rgba(56, 189, 248, 0.25);
   --shadow-card: 0 8px 32px rgba(56, 189, 248, 0.1);
@@ -63,7 +96,7 @@
     margin: 0;
   }
 
-  /* Scrollbar styling for dark theme */
+  /* Scrollbar styling */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -74,12 +107,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--color-muted);
     border-radius: 3px;
+    opacity: 0.5;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-gray);
   }
 
   /* Focus visible for accessibility */
@@ -90,8 +124,22 @@
 
   /* Selection color */
   ::selection {
-    background: rgba(56, 189, 248, 0.3);
+    background: rgba(14, 165, 233, 0.2);
     color: var(--color-dark);
+  }
+
+  .dark ::selection {
+    background: rgba(56, 189, 248, 0.3);
+  }
+
+  /* Leaflet z-index fix for mobile sidebar */
+  .leaflet-pane,
+  .leaflet-top,
+  .leaflet-bottom {
+    z-index: 0 !important;
+  }
+  .leaflet-control {
+    z-index: 1 !important;
   }
 }
 

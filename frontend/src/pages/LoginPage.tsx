@@ -95,7 +95,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right - Hero */}
-      <div className="hidden lg:flex flex-1 items-center justify-center p-12" style={{ background: 'linear-gradient(135deg, #0c1220 0%, #111827 50%, #0c1220 100%)' }}>
+      <div className="hidden lg:flex flex-1 items-center justify-center p-12" style={{ background: 'linear-gradient(135deg, var(--color-surface) 0%, var(--color-card) 50%, var(--color-surface) 100%)' }}>
         <div className="max-w-lg">
           <span className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-primary text-xs font-bold uppercase tracking-widest" style={{ background: 'rgba(56,189,248,0.15)', border: '1px solid rgba(56,189,248,0.2)', fontFamily: 'var(--font-mono)' }}>
             Inteligência Competitiva

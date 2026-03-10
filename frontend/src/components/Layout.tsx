@@ -11,8 +11,11 @@ import {
   X,
   LogOut,
   Radar,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { currentUser, goldSignals } from '../data/mockData';
+import { useTheme } from '../contexts/ThemeContext';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -26,6 +29,7 @@ const navItems = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
   const naoLidos = goldSignals.filter((s) => !s.lido).length;
 
   const isAuthPage = location.pathname === '/login' || location.pathname === '/cadastro';
@@ -127,6 +131,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </h2>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 hover:bg-elevated rounded-xl transition-colors text-gray hover:text-dark"
+              title={theme === 'light' ? 'Tema escuro' : 'Tema claro'}
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
             <NavLink
               to="/alertas"
               className="relative p-2 hover:bg-elevated rounded-xl transition-colors text-gray hover:text-dark"

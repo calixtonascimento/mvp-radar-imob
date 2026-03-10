@@ -96,7 +96,7 @@ export default function DashboardPage() {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)', backgroundColor: '#111827', color: '#f1f5f9' }} />
+                <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--color-light-gray)', backgroundColor: 'var(--color-card)', color: 'var(--color-dark)' }} />
               </PieChart>
             </ResponsiveContainer>
             <div className="space-y-3">
