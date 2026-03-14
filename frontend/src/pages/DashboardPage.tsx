@@ -14,6 +14,7 @@ import {
 import {
   dashboardResumo,
 } from '../data/mockData';
+import { useDeviceType } from '../utils/useDeviceType';
 
 const tipoDistribuicao = [
   { name: 'Apartamento', value: 8, color: '#38bdf8' },
@@ -23,6 +24,8 @@ const tipoDistribuicao = [
 ];
 
 export default function DashboardPage() {
+  const { isMobile } = useDeviceType();
+
   return (
     <div className="space-y-6">
       {/* KPI Cards */}
@@ -80,8 +83,8 @@ export default function DashboardPage() {
         {/* Distribuição por Tipo */}
         <div className="bg-card rounded-xl border border-light-gray p-6 card-accent">
           <h3 className="text-base font-semibold text-dark mb-4">Distribuição por tipo de imóvel</h3>
-          <div className="flex items-center">
-            <ResponsiveContainer width="50%" height={250}>
+          <div className="flex items-center max-sm:flex-col">
+            <ResponsiveContainer width={isMobile ? '100%' : '50%'} height={250}>
               <PieChart>
                 <Pie
                   data={tipoDistribuicao}
@@ -99,7 +102,7 @@ export default function DashboardPage() {
                 <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid var(--color-light-gray)', backgroundColor: 'var(--color-card)', color: 'var(--color-dark)' }} />
               </PieChart>
             </ResponsiveContainer>
-            <div className="space-y-3">
+            <div className="space-y-3 max-sm:w-full">
               {tipoDistribuicao.map((item) => (
                 <div key={item.name} className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />

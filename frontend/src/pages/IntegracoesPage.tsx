@@ -47,12 +47,12 @@ export default function IntegracoesPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray">
+        <p className="text-sm text-gray max-sm:text-balance">
           Gerencie suas integrações de dados de imóveis
         </p>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow"
+          className="flex items-center gap-2 px-4 py-2.5 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow max-sm:whitespace-nowrap"
         >
           <Plus className="w-4 h-4" />
           Nova Integração
@@ -87,7 +87,7 @@ export default function IntegracoesPage() {
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-base font-semibold text-dark">Feed XML</h3>
-                      <span className={`flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-lg ${status.color}`}>
+                      <span className={`flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-lg ${status.color} max-sm:ellipsis max-sm:overflow-hidden`}>
                         {status.icon}
                         {status.label}
                       </span>

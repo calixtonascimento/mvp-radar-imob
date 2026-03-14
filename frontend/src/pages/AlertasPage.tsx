@@ -56,7 +56,7 @@ export default function AlertasPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start gap-2">
         <div>
           <p className="text-sm text-gray">
             {naoLidos} alertas não lidos • {goldSignals.length} total
@@ -74,9 +74,9 @@ export default function AlertasPage() {
           <button
             key={opt.value}
             onClick={() => setFiltroTipo(opt.value)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer
               ${filtroTipo === opt.value
-                ? 'bg-primary text-bg'
+                ? 'bg-primary text-bg border'
                 : 'bg-card border border-light-gray text-gray hover:border-border hover:text-dark'
               }`}
           >
@@ -120,7 +120,7 @@ export default function AlertasPage() {
                   {signalIcons[signal.tipo]}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-lg ${getSignalColor(signal.tipo)}`}>
                       {getSignalLabel(signal.tipo)}
                     </span>
