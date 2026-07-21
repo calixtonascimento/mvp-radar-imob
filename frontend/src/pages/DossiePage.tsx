@@ -212,7 +212,7 @@ export default function DossiePage() {
             />
           </div>
           <div className="flex-1 p-6">
-            <div className="flex items-start justify-between mb-4">
+            <div className="relative flex items-start justify-between mb-4">
               <div>
                 <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg ${imovel.isConcorrente ? 'bg-primary/20 text-primary-dark' : 'bg-secondary/20 text-secondary-dark'}`}>
                   {imovel.isConcorrente ? 'Imóvel Concorrente' : 'Seu Imóvel'}
@@ -223,13 +223,13 @@ export default function DossiePage() {
                   {imovel.endereco} - {imovel.bairro}, {imovel.cidade}/{imovel.estado}
                 </p>
               </div>
-              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow">
+              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-bg rounded-[10px] text-sm font-bold hover:bg-primary-dark transition-all btn-primary-glow whitespace-nowrap max-sm:absolute max-sm:-top-2 max-sm:right-0">
                 <Download className="w-4 h-4" />
                 Exportar PDF
               </button>
             </div>
 
-            <div className="flex items-end gap-4 mb-4">
+            <div className="flex items-end gap-4 mb-4 max-sm:flex-col max-sm:items-start max-sm:gap-1">
               <p className="text-3xl font-bold text-dark" style={{ fontFamily: 'var(--font-mono)' }}>{formatCurrency(imovel.preco)}</p>
               {imovel.precoAnterior && (
                 <p className="text-sm text-gray line-through mb-1">{formatCurrency(imovel.precoAnterior)}</p>
@@ -344,7 +344,7 @@ export default function DossiePage() {
         ) : (
           <div className="space-y-3">
             {sinais.map((signal) => (
-              <div key={signal.id} className="flex items-start gap-3 p-3 bg-surface rounded-xl">
+              <div key={signal.id} className="flex items-start gap-3 p-3 bg-surface rounded-xl max-sm:flex-col max-sm:items-start max-sm:px-0">
                 <span className={`text-xs font-semibold px-2 py-1 rounded-lg whitespace-nowrap ${getSignalColor(signal.tipo)}`}>
                   {getSignalLabel(signal.tipo)}
                 </span>

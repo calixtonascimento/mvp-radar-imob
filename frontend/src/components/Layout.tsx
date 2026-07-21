@@ -64,6 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             Clarity<span className="text-primary">Imob</span>
           </h1>
           <button
+          aria-label="Fechar menu"
             className="lg:hidden ml-auto p-1 hover:bg-elevated rounded-lg transition-colors"
             onClick={() => setSidebarOpen(false)}
           >
@@ -107,7 +108,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <p className="text-sm font-medium text-dark truncate">{currentUser.nome}</p>
               <p className="text-xs text-muted truncate">{currentUser.empresa}</p>
             </div>
-            <button className="p-1.5 hover:bg-elevated rounded-lg text-muted hover:text-primary transition-colors">
+            <button aria-label="Sair" className="p-1.5 hover:bg-elevated rounded-lg text-muted hover:text-primary transition-colors">
               <LogOut className="w-4 h-4" />
             </button>
           </div>
@@ -117,16 +118,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-surface border-b border-light-gray px-4 lg:px-8 py-4 flex items-center gap-4"
+        <header className="bg-surface border-b border-light-gray px-4 lg:px-8 py-4 flex items-center gap-4 max-sm:gap-2"
           style={{ backdropFilter: 'blur(20px) saturate(1.5)' }}>
           <button
+            aria-label="Abrir menu"
             className="lg:hidden p-2 hover:bg-elevated rounded-xl transition-colors"
             onClick={() => setSidebarOpen(true)}
           >
             <Menu className="w-5 h-5 text-dark" />
           </button>
           <div className="flex-1">
-            <h2 className="text-lg font-semibold text-dark">
+            <h2 className="text-lg font-semibold text-dark max-sm:text-base">
               {navItems.find((n) => n.to === location.pathname)?.label || 'ClarityImob'}
             </h2>
           </div>
@@ -149,10 +151,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </span>
               )}
             </NavLink>
-            <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-full max-sm:px-2 max-sm:py-1"
               style={{
                 background: 'rgba(52, 211, 153, 0.15)',
-                color: '#34d399',
+                color: 'var(--color-secondary-dark)',
                 border: '1px solid rgba(52, 211, 153, 0.2)',
                 fontFamily: 'var(--font-mono)',
                 letterSpacing: '0.5px',
